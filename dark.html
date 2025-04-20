@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DARKTECH | Bugs Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: #000 url('https://files.catbox.moe/jeht1t.PNG') no-repeat center center fixed;
+      background-size: cover;
+      color: #00ffe1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .glitch {
+      font-size: 28px;
+      color: #00ffe1;
+      text-shadow: 1px 0 red, -1px 0 blue;
+      animation: glitch 1s infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes glitch {
+      0% { text-shadow: 2px 0 red, -2px 0 blue; }
+      20% { text-shadow: -2px 0 red, 2px 0 blue; }
+      40% { text-shadow: 2px 2px red, -2px -2px blue; }
+      60% { text-shadow: 0 0 red, 0 0 blue; }
+      100% { text-shadow: -1px 0 red, 1px 0 blue; }
+    }
+
+    .container {
+      background-color: rgba(0, 0, 0, 0.85);
+      border: 2px solid #00ffe1;
+      border-radius: 10px;
+      padding: 25px;
+      width: 90%;
+      max-width: 350px;
+      box-shadow: 0 0 20px #00ffe1;
+    }
+
+    .container input {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid #00ffe1;
+      background: #000;
+      color: #00ffe1;
+      border-radius: 5px;
+    }
+
+    .container button {
+      width: 100%;
+      padding: 10px;
+      background-color: #00ffe1;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .container button:hover {
+      background-color: #02fff5;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .status {
+      margin-top: 15px;
+      color: #ff4444;
+      text-align: center;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 10px;
+      text-align: center;
+      width: 100%;
+      font-size: 12px;
+      color: #00ffe1;
+      text-shadow: 0 0 5px #00ffe1;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glitch">DARKTECH| BUGS PANEL</div>
+
+  <!-- Login -->
+  <div class="container" id="login-box">
+    <input type="text" id="user" placeholder="Username">
+    <input type="password" id="pass" placeholder="Password">
+    <button onclick="doLogin()">Login</button>
+    <div class="status" id="login-status"></div>
+  </div>
+
+  <!-- Panel -->
+  <div class="container hidden" id="panel-box">
+    <input type="text" id="victim" placeholder="Enter Victim Number">
+    <input type="text" id="apikey" placeholder="Enter API Key">
+    <button onclick="send()">Execute</button>
+    <div class="status" id="action-status"></div>
+  </div>
+
+  <!-- Branding -->
+  <div class="footer">DARKTECH ©</div>
+
+  <script>
+    function doLogin() {
+      const user = document.getElementById('user').value.trim();
+      const pass = document.getElementById('pass').value.trim();
+      const status = document.getElementById('login-status');
+
+      if (user === "admin" && pass === "toor") {
+        document.getElementById('login-box').classList.add('hidden');
+        document.getElementById('panel-box').classList.remove('hidden');
+      } else {
+        status.textContent = "Invalid username or password.";
+      }
+    }
+
+    function send() {
+      const victim = document.getElementById('victim').value.trim();
+      const apikey = document.getElementById('apikey').value.trim();
+      const status = document.getElementById('action-status');
+
+      if (!victim || !apikey) {
+        status.style.color = "#ff4444";
+        status.textContent = "Please fill in all fields.";
+        return;
+      }
+
+      if (!apikey.startsWith("DARKTECH~")) {
+        status.style.color = "#ff4444";
+        status.textContent = "API KEY DOESN’T EXIST.";
+        return;
+      }
+
+      status.style.color = "#00ff99";
+      status.textContent = `Payload sent to ${victim} using API Key: ${apikey}`;
+    }
+  </script>
+</body>
+</html>
